@@ -72,12 +72,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'databricksinabox',
+        'USER': 'ItAsset',
+        'PASSWORD': 'ItAsset@dev04',
+        'HOST': '103.127.29.55',  # Or your DB host/IP
+        'PORT': '5433',       # Default PostgreSQL port
     }
 }
+
 
 
 # Password validation
