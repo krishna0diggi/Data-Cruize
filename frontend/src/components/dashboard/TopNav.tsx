@@ -22,7 +22,7 @@ const TopNav: React.FC<TopNavProps> = ({ sidebarOpen, setSidebarOpen }) => {
       </button>
       
       <div className="ml-4">
-        <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+        <h1 className="text-xl font-semibold text-gray-900">Set Up</h1>
       </div>
       
       <div className="flex-1"></div>

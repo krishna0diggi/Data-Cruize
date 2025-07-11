@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Django SQLite database
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Editor/IDE settings
+.vscode/
+.idea/
+
+# Node (frontend)
+frontend/node_modules/

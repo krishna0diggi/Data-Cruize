@@ -9,25 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: "hsl(var(--primary))",
-        "primary-foreground": "hsl(var(--primary-foreground))",
-        secondary: "hsl(var(--secondary))",
-        "secondary-foreground": "hsl(var(--secondary-foreground))",
-        muted: "hsl(var(--muted))",
-        "muted-foreground": "hsl(var(--muted-foreground))",
-        accent: "hsl(var(--accent))",
-        "accent-foreground": "hsl(var(--accent-foreground))",
-        destructive: "hsl(var(--destructive))",
-        "destructive-foreground": "hsl(var(--destructive-foreground))",
-        success: "hsl(var(--success))",
-        "success-foreground": "hsl(var(--success-foreground))",
-        warning: "hsl(var(--warning))",
-        "warning-foreground": "hsl(var(--warning-foreground))",
-        card: "hsl(var(--card))",
-        "card-foreground": "hsl(var(--card-foreground))",
+        primary: '#ff1744', // Red A400
+        'primary-foreground': '#fff',
+        secondary: '#ff8a80', // Red lighten
+        'secondary-foreground': '#fff',
+        accent: '#ff5252', // Red accent
+        'accent-foreground': '#fff',
+        background: '#fff0f0', // Light red background
+        foreground: '#b71c1c', // Dark red text
+        muted: '#f8bbd0',
+        'muted-foreground': '#ad1457',
+        card: '#fff1f2',
+        'card-foreground': '#b71c1c',
+      },
+      fontFamily: {
+        sans: ['Roboto', 'Arial', 'sans-serif'],
       },
     },
   },

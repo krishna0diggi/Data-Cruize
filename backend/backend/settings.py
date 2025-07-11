@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+     # Custom apps (modular structure under /apps/)
+    'apps.user',
 ]
 
 MIDDLEWARE = [
@@ -79,14 +82,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'databricksinabox',
-        'USER': 'ItAsset',
-        'PASSWORD': 'ItAsset@dev04',
-        'HOST': '103.127.29.55',  # Or your DB host/IP
-        'PORT': '5433',       # Default PostgreSQL port
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
