@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
      # Custom apps (modular structure under /apps/)
     'apps.user',
+    'apps.hyperscaler',
+    'rest_framework',  # Django REST Framework for API development
 ]
 
 MIDDLEWARE = [
