@@ -40,10 +40,10 @@ function App() {
           <Route path="/databricks/access-control" element={<DashboardLayout><AccessControl /></DashboardLayout>} />
 
           {/* Settings routes */}
-          <Route path='/settings/environment' element={<DashboardLayout><Environment /></DashboardLayout>} />
-          <Route path="/settings/hyperscaler" element={<DashboardLayout><HyperScalerSetting /></DashboardLayout>} />
+          <Route path="/settings/hyperscaler" element={<DashboardLayout><HyperScaler /></DashboardLayout>} />
           <Route path='/settings/version-control' element={<DashboardLayout><Git /></DashboardLayout>} />
-          <Route path='/settings/mapping' element={<DashboardLayout><Mapping /></DashboardLayout>} />
+          <Route path='/settings/environment' element={<DashboardLayout><Environment /></DashboardLayout>} />
+          {/* <Route path='/settings/mapping' element={<DashboardLayout><Mapping /></DashboardLayout>} /> */}
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
