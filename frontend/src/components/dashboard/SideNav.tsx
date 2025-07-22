@@ -45,6 +45,9 @@ const menuItems: MenuItem[] = [
     icon: Settings,
     children: [
       { id: 'hyperscaler', title: 'Hyperscaler', path: '/settings/hyperscaler' },
+      // { id: 'version-control', title: 'Version Control', path: '/settings/version-control' },
+      // { id: 'environment', title: 'Environment', path: '/settings/environment' },
+      // { id: 'mapping', title: 'Mappping', path: '/settings/mapping' },
     ],
   },
 ];
