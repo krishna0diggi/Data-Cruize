@@ -16,8 +16,8 @@ import NotFound from './pages/NotFound'
 import Index from './pages/Index'
 import Environment from './pages/Settings/Environment/Environment'
 import Git from './pages/Settings/version-control/Git'
-import Mapping from './pages/Settings/Mapping'
-import HyperScalerSetting from './pages/Settings/HyperScalerSetting'
+// import Mapping from './pages/Settings/Mapping'
+// import HyperScalerSetting from './pages/Settings/HyperScalerSetting'
 
 const queryClient = new QueryClient();
 
