@@ -1,7 +1,7 @@
 // --- AddEnvironment.tsx ---
 import React, { useState, useEffect } from "react";
 import Button from "../../../components/ui/Button";
-import { getCloudWithID } from "../../../services/cloud_services/CloudService";
+import { getCloudWithID } from "../../../services/cloud_services/cloudService";
 import { getGitServiceWithID } from "../../../services/git_services/gitService";
 
 interface AddEnvironmentDialogProps {

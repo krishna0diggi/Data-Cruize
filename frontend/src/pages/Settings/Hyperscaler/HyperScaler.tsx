@@ -5,7 +5,7 @@ import {
   getAllCloudServices,
   createCloudService,
   UpdateCloudService,
-} from "../../../services/cloud_services/CloudService";
+} from "../../../services/cloud_services/cloudService";
 
 // DataTables
 import DataTable from "datatables.net-react";
