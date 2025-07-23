@@ -11,6 +11,7 @@ import {
 import DataTable from "datatables.net-react";
 import DataTablesCore from "datatables.net-dt";
 import "datatables.net-rowgroup-dt"; // Optional: Grouping
+
 DataTable.use(DataTablesCore);
 
 type CloudService = {
@@ -87,14 +88,19 @@ export default function HyperScaler() {
         </Button>
       </div>
 
-      <div className="bg-white rounded shadow p-4">
+      <div className="bg-white rounded-xl shadow p-6 overflow-x-auto">
         {loading ? (
           <div>Loading...</div>
         ) : (
           <DataTable
             data={cloudServices}
             columns={columns}
-            className="display stripe hover"
+            options={{
+              dom: '<"flex justify-between items-center px-4 py-2"lf>rt<"flex justify-between items-center px-4 py-2"ip>',
+              paging: true,
+              searching: true,
+              lengthChange: true,
+            }}
           >
             <thead>
               <tr>

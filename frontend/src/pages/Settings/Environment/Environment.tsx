@@ -1,4 +1,3 @@
-
 // --- Environment.tsx ---
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/ui/Button";
@@ -6,6 +5,7 @@ import AddEnvironment from "./AddEnvironment";
 import DataTable from "datatables.net-react";
 import DataTablesCore from "datatables.net-dt";
 import { getAllEnvironments, createEnvironment, updateEnvironment } from "../../../services/env_services/envService";
+
 
 DataTable.use(DataTablesCore);
 
@@ -75,7 +75,18 @@ const Environment = () => {
           <DataTable
             data={environmentData}
             columns={columns}
-            className="display stripe hover"
+            className="stripe hover"
+            options={{
+              dom: `
+                <'flex flex-col md:flex-row justify-between items-center gap-4 mb-4'lf>
+                <'overflow-x-auto't>
+                <'flex flex-col md:flex-row justify-between items-center gap-4 mt-4'ip>
+              `,
+              paging: true,
+              searching: true,
+              lengthChange: true,
+              info: true,
+            }}
           />
         )}
       </div>

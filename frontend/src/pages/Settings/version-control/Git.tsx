@@ -34,6 +34,8 @@ export default function GitServiceManager() {
     setLoading(true);
     try {
       const data = await getAllGitServices();
+      console.log(data);
+
       setGitServices(data);
     } catch (err) {
       console.error("Error fetching Git services", err);
@@ -61,10 +63,11 @@ export default function GitServiceManager() {
   };
 
   const columns = [
+    { title: "Git ID", data: "git_id" },
     { title: "Repo Owner", data: "repo_owner" },
     { title: "Repo Name", data: "repo_name" },
     { title: "Workflow ID", data: "workflow_id" },
-    { title: "Git ID", data: "git_id" },
+    { title: "Github Token", data: "github_token" },
   ];
 
   return (
@@ -96,6 +99,7 @@ export default function GitServiceManager() {
                 <th>Repo Owner</th>
                 <th>Repo Name</th>
                 <th>Workflow ID</th>
+                <th>Github Token</th>
                 <th>Git ID</th>
               </tr>
             </thead>

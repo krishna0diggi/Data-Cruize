@@ -1,1 +1,17 @@
 @import "tailwindcss";
+/* Add to your global styles or Tailwind config if necessary */
+.dataTables_wrapper .dataTables_filter input {
+  @apply border border-gray-300 rounded px-2 py-1 text-sm;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  @apply border border-gray-300 rounded px-2 py-1 text-sm;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  @apply bg-blue-100 text-blue-700 hover:bg-blue-200 px-2 py-1 rounded mx-1;
+}
+
+.dataTables_wrapper .dataTables_info {
+  @apply text-sm text-gray-600 mt-2;
+}
