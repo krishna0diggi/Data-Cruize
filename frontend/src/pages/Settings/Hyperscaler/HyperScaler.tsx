@@ -65,12 +65,12 @@ export default function HyperScaler() {
   };
 
   const columns = [
+    { title: "Cloud ID", data: "cloud_id" },
     { title: "Provider", data: "provider" },
     { title: "Account", data: "account" },
     { title: "Subscription ID", data: "subscription_id" },
     { title: "Region", data: "region" },
     { title: "Role", data: "role" },
-    { title: "Cloud ID", data: "cloud_id" },
   ];
 
   return (
