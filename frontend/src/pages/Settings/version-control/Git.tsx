@@ -34,8 +34,6 @@ export default function GitServiceManager() {
     setLoading(true);
     try {
       const data = await getAllGitServices();
-      console.log(data);
-
       setGitServices(data);
     } catch (err) {
       console.error("Error fetching Git services", err);

@@ -78,10 +78,7 @@ const DataTable: React.FC<DataTableProps> = ({
     from = 1,
     to = 5,
 }) => {
-    console.log(rows);
-    console.log(columns);
-    
-    
+
     const [selected, setSelected] = useState<any[]>([]);
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
     const [orderBy, setOrderBy] = useState<string>('');

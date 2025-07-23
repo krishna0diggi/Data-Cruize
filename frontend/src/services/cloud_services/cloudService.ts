@@ -13,8 +13,6 @@ export const getAllCloudServices = async (
   }
   try {
     const response = await api.get(`/hyperscaler/cloud-credentials/?${params.toString()}`);
-    console.log(response);
-    
     return response.data;
   } catch (err) {
     console.error("Error fetching cloud services:", err);
