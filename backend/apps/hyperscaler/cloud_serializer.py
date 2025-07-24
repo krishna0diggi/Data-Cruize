@@ -11,7 +11,7 @@ class CloudCredentialNameSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     class Meta:
         model = CloudCredential
-        fields = ['id', 'provider', 'account','cloud_id', 'name']
+        fields = ['id', 'provider', 'unique_Name' ,'account','cloud_id', 'name']
     def get_name(self, obj):
         return obj.account or obj.provider.upper()
 
@@ -21,6 +21,7 @@ class CloudCredentialPostSerialzer(serializers.ModelSerializer):
         fields = [
             'provider',
             'account',
+            'unique_Name',
             'subscription_id',
             'tenant_id',
             'client_id',

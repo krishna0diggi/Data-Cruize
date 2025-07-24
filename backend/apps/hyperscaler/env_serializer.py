@@ -29,6 +29,7 @@ class EnvironmentSerializer(serializers.ModelSerializer):
             'env_id',
             'name',
             'description',
+            'status',
             'cloud',        # nested read
             'git',          # nested read
             'cloud_id',     # for write
@@ -49,7 +50,7 @@ class EnvironmentPostSerializer(serializers.ModelSerializer):
 class EnvironmentBasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Environment
-        fields = ['id', 'env_id', 'name', 'description', 'cloud', 'git', 'created_at', 'updated_at']
+        fields = ['id', 'env_id', 'name', 'description', 'status','cloud', 'git', 'created_at', 'updated_at']
 
 class EnvironmentNameIdSerializer(serializers.ModelSerializer):
     class Meta:

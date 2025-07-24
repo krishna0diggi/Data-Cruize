@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Spinner } from '../../../components/ui/Spinner';
+import { toast } from 'react-toastify';
 
 interface AddCategoryDialogProps {
   visible: boolean;
+  cloudNames: string[];
   onClose: () => void;
   onSubmit: (formData: Record<string, any>) => Promise<void>;
   initialData?: Record<string, any> | null;
@@ -12,21 +15,27 @@ const providerFields: Record<
   { label: string; name: string; type?: string }[]
 > = {
   aws: [
+    { label: 'Cloud Name', name: 'unique_Name' },
     { label: 'Subscription ID', name: 'subscription_id' },
     { label: 'Tenant ID', name: 'tenant_id' },
     { label: 'Client Secret', name: 'client_secret', type: 'password' },
     { label: 'ARM Access Key', name: 'arm_access_key', type: 'password' },
+    { label: 'Region', name: 'region' },
   ],
   azure: [
+    { label: 'Cloud Name', name: 'unique_Name' },
     { label: 'Subscription ID', name: 'subscription_id' },
     { label: 'Directory (Tenant) ID', name: 'tenant_id' },
     { label: 'Client ID', name: 'client_id' },
     { label: 'Client Secret', name: 'client_secret', type: 'password' },
+    // {label: 'ARM Access Key', name: 'arm_access_key', type: 'password' },
+    { label: 'Region', name: 'region' },
   ],
-  gcp: [
-    { label: 'Project ID', name: 'project_id' },
-    { label: 'Service Account Key', name: 'service_account_key', type: 'password' },
-  ],
+  // gcp: [
+  //     {label: 'Cloud Name', name: 'unique_Name'},
+  //   { label: 'Project ID', name: 'project_id' },
+  //   { label: 'Service Account Key', name: 'service_account_key', type: 'password' },
+  // ],
 };
 
 export default function AddHyperscaler({
@@ -34,10 +43,15 @@ export default function AddHyperscaler({
   onClose,
   onSubmit,
   initialData,
+  cloudNames,
 }: AddCategoryDialogProps) {
+  // console.log(initialData);
+
   const [provider, setProvider] = useState('aws');
   const [formData, setFormData] = useState<Record<string, any>>({});
-
+  const [nameError, setNameError] = useState<string | null>(null);
+   const [loading, setLoading] = useState(false);
+   
   useEffect(() => {
     if (initialData) {
       setProvider(initialData.provider || 'aws');
@@ -46,6 +60,7 @@ export default function AddHyperscaler({
       setProvider('aws');
       setFormData({});
     }
+    setNameError(null);
   }, [initialData]);
 
   if (!visible) return null;
@@ -58,12 +73,40 @@ export default function AddHyperscaler({
       ...prev,
       [name]: value,
     }));
+    if (name === 'unique_Name') {
+      if (cloudNames.includes(value)) {
+        setNameError('Name already exists. Please choose a different name.');
+      } else {
+        setNameError(null);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await onSubmit({ ...formData, provider });
-    onClose();
+     setLoading(true);
+    if (nameError) return;
+    // if(!formData.unique_Name || !formData.subscription_id || !formData.provider) {
+    //   alert("Name, Subscription ID, and Provider are required.");
+    //   return;
+    // }
+    // await onSubmit({ ...formData, provider });
+   
+    // setNameError(null);
+
+
+     try {
+      await onSubmit({ ...formData, provider });
+       setFormData({});
+    setProvider('aws');
+      onClose();
+    } catch (error) {
+      // Optionally handle submit error here
+      toast.error('Failed to submit form. Please try again.');
+      // console.error('Submit failed', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -76,7 +119,7 @@ export default function AddHyperscaler({
             <form onSubmit={handleSubmit}>
               <div className="bg-white px-6 pt-5 pb-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  {initialData ? 'Edit Hyperscaler' : 'Add Hyperscaler'}
+                  {initialData ? 'Edit Cloud Credential' : 'Add Cloud Credential'}
                 </h3>
 
                 {/* Provider Select */}
@@ -99,7 +142,7 @@ export default function AddHyperscaler({
                   >
                     <option value="aws">AWS</option>
                     <option value="azure">Azure</option>
-                    <option value="gcp">Google Cloud</option>
+                    {/* <option value="gcp">Google Cloud</option> */}
                   </select>
                 </div>
 
@@ -118,6 +161,9 @@ export default function AddHyperscaler({
                       className="w-full p-2 border border-gray-300 rounded-md"
                       autoComplete="off"
                     />
+                    {field.name === 'unique_Name' && nameError && (
+                      <p className="text-red-600 text-xs mt-1">{nameError}</p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -132,9 +178,12 @@ export default function AddHyperscaler({
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                  className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  disabled={!!nameError || loading}
                 >
-                  {initialData ? 'Update' : 'Save'} Configuration
+                  {loading && <Spinner />}
+                  {loading ? (initialData ? 'Updating...' : 'Saving...') : (initialData ? 'Update' : 'Save')}
                 </button>
               </div>
             </form>

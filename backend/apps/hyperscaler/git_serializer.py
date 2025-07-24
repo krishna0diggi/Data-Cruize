@@ -5,7 +5,7 @@ class GitCredentialNameSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     class Meta:
         model = GitCredentials
-        fields = ['id','git_id','name']
+        fields = ['id','git_id','name','unique_Name']
     def get_name(self, obj):
         return f"{obj.repo_owner}/{obj.repo_name}"
 

@@ -4,7 +4,9 @@ import Button from "../../../components/ui/Button";
 import AddEnvironment from "./AddEnvironment";
 import DataTable from "datatables.net-react";
 import DataTablesCore from "datatables.net-dt";
-import { getAllEnvironments, createEnvironment, updateEnvironment } from "../../../services/env_services/envService";
+import { getAllEnvironments, createEnvironment, updateEnvironment, deleteEnvironment } from "../../../services/env_services/envService";
+import { toast, ToastContainer } from "react-toastify";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
 
 
 DataTable.use(DataTablesCore);
@@ -14,6 +16,8 @@ const Environment = () => {
   const [loading, setLoading] = useState(true);
   const [environmentData, setEnvironmentData] = useState<any[]>([]);
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState<{ open: boolean; id: string | null }>({ open: false, id: null });
+
 
   const fetchEnvironment = async () => {
     setLoading(true);
@@ -44,19 +48,76 @@ const Environment = () => {
       console.error("Failed to save environment", err);
     }
   };
+  useEffect(() => {
+    if (!loading) {
+      const table = document.querySelector(".dataTable") as HTMLElement;
+      table?.addEventListener("click", async (e: any) => {
+        const target = e.target;
+        const id = target.getAttribute("data-id");
+
+        if (target.classList.contains("edit-btn")) {
+          console.log(environmentData);
+
+          const selected = environmentData.find((item) => item.id === id);
+          setSelectedService(selected);
+          setDialogOpen(true);
+        }
+
+        if (target.classList.contains("delete-btn")) {
+          setConfirmDelete({ open: true, id });
+        }
+        if (target.classList.contains("publish-btn")) {
+          // Call your publish API here
+          console.log("Publishing", id);
+        }
+      });
+
+      return () => {
+        table?.removeEventListener("click", () => { });
+      };
+
+
+    }
+
+  }, [loading, environmentData])
+
+
+  const handleDeleteConfirmed = async () => {
+    if (confirmDelete.id) {
+      try {
+        await deleteEnvironment(parseInt(confirmDelete.id));
+        toast.success("Environment deleted successfully.");
+        fetchEnvironment();
+      } catch (err) {
+        toast.error("Failed to delete environment.");
+      }
+    }
+    setConfirmDelete({ open: false, id: null });
+  };
 
   const columns = [
     { title: "Env ID", data: "env_id" },
     { title: "Name", data: "name" },
-    { title: "Description", data: "description" },
-    { title: "Cloud Provider", data: "cloud.provider", defaultContent: "-" },
-    { title: "Git Repo", data: "git.repo_name", defaultContent: "-" },
+    { title: 'Status', data: "status" },
+    // { title: "Description", data: "description" },
+    { title: "Cloud Name", data: "cloud.unique_Name", defaultContent: "-" },
+    { title: "Git Name", data: "git.unique_Name", defaultContent: "-" },
+    {
+      title: "Actions", data: null, orderable: false, render: function (data: any, type: any, row: any) {
+        return `
+         <div class="flex gap-2">
+        
+          <button class="delete-btn text-red-600 hover:underline" data-id="${row.id}">Delete</button>
+        </div>
+      `
+      }
+    }
   ];
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Environment</h2>
+        <h2 className="text-2xl">Environments</h2>
         <Button
           variant="primary"
           onClick={() => {
@@ -69,6 +130,22 @@ const Environment = () => {
       </div>
 
       <div className="bg-white rounded shadow p-4">
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="colored"
+        />
+        <ConfirmModal
+          open={confirmDelete.open}
+          message="Are you sure you want to delete this cloud service?"
+          onConfirm={handleDeleteConfirmed}
+          onCancel={() => setConfirmDelete({ open: false, id: null })}
+        />
         {loading ? (
           <div>Loading...</div>
         ) : (

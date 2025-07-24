@@ -16,8 +16,11 @@ import NotFound from './pages/NotFound'
 import Index from './pages/Index'
 import Environment from './pages/Settings/Environment/Environment'
 import Git from './pages/Settings/version-control/Git'
+import DatabricksEnvironment from './pages/DatabricksServices/DatabricksEnvironment'
 // import Mapping from './pages/Settings/Mapping'
 // import HyperScalerSetting from './pages/Settings/HyperScalerSetting'
+
+
 
 const queryClient = new QueryClient();
 
@@ -26,8 +29,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
+
           {/* Redirect root to first menu item */}
           <Route path="/" element={<Navigate to="/cloud/resource-group" replace />} />
+
+          <Route path="/databricks/service/environment" element={<DashboardLayout><DatabricksEnvironment/></DashboardLayout>}/>
 
           {/* Cloud routes */}
           <Route path="/cloud/resource-group" element={<DashboardLayout><ResourceGroup /></DashboardLayout>} />

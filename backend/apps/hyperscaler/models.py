@@ -14,6 +14,7 @@ class CloudCredential(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # Common fields
+    unique_Name = models.CharField(max_length=100, unique=True, null=True, blank=True)
     account = models.CharField(max_length=100, blank=True, null=True)
     subscription_id = models.CharField(max_length=100, blank=True, null=True)
     tenant_id = models.CharField(max_length=100, blank=True, null=True)
@@ -35,13 +36,14 @@ class CloudCredential(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.cloud_id:
-            self.cloud_id = generate_custom_id('CL')
+            self.cloud_id = generate_custom_id('CL-')
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.provider.upper()} Credentials"
 
 class GitCredentials(models.Model):
+    unique_Name = models.CharField(max_length=100, unique=True, null=True, blank=True)
     github_token = models.CharField(max_length=255)
     repo_owner = models.CharField(max_length=255)
     repo_name = models.CharField(max_length=255)
@@ -61,7 +63,7 @@ class GitCredentials(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.git_id:
-            self.git_id = generate_custom_id('GT')
+            self.git_id = generate_custom_id('GT-')
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -70,6 +72,30 @@ class GitCredentials(models.Model):
 class Environment(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('active', 'Active'),
+            ('inactive', 'Inactive'),
+            ('pending', 'Pending'),
+            ('failed', 'Failed'),
+            ('deleting', 'Deleting'),
+            ('deleted', 'Deleted'),
+            ('suspended', 'Suspended'),
+            ('resuming', 'Resuming'),
+            ('resumed', 'Resumed'),
+            ('creating', 'Creating'),
+            ('updating', 'Updating'),
+            ('inactive', 'Inactive'),
+            ('error', 'Error'),
+            ('cancelling', 'Cancelling'),
+            ('cancelled', 'Cancelled'),
+            ('suspending', 'Suspending'),
+            ('succeeded', 'Succeeded'),
+            ('archived', 'Archived')
+        ],
+        default='inactive'
+    )
     cloud = models.ForeignKey(CloudCredential, on_delete=models.CASCADE, related_name='environments', null=True)
     git = models.ForeignKey(GitCredentials, on_delete=models.CASCADE, related_name='environments', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -87,7 +113,7 @@ class Environment(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.env_id:
-            self.env_id = generate_custom_id('EV')
+            self.env_id = generate_custom_id('EV-')
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -19,6 +19,14 @@ interface SideNavProps {
 }
 
 const menuItems: MenuItem[] = [
+   {
+    id: 'databricks-services',
+    title: 'Databricks Services',
+    icon: Cloud,
+    children: [
+      { id: 'databricks-service', title: 'Environment', path: '/databricks/service/environment' },
+    ],
+  },
   {
     id: 'cloud',
     title: 'Cloud',
@@ -44,9 +52,9 @@ const menuItems: MenuItem[] = [
     title: 'Settings',
     icon: Settings,
     children: [
-      { id: 'hyperscaler', title: 'Hyperscaler', path: '/settings/hyperscaler' },
-      { id: 'version-control', title: 'Git Control', path: '/settings/version-control' },
-      { id: 'environment', title: 'Environment', path: '/settings/environment' },
+      { id: 'hyperscaler', title: 'Cloud Credentials', path: '/settings/hyperscaler' },
+      { id: 'version-control', title: 'Git Credentials', path: '/settings/version-control' },
+      { id: 'environment', title: 'Environments', path: '/settings/environment' },
 
     ],
   },

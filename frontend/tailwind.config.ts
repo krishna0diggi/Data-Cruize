@@ -1,5 +1,6 @@
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   content: [
@@ -23,7 +24,7 @@ const config: Config = {
         'card-foreground': '#b71c1c',
       },
       fontFamily: {
-        sans: ['Roboto', 'Arial', 'sans-serif'],
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
     },
   },

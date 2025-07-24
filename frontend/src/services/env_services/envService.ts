@@ -42,7 +42,7 @@ export const updateEnvironment = async (id: string, data: any) => {
     }
 };
 
-export const deleteEnvironment = async (id: string) => {
+export const deleteEnvironment = async (id: number) => {
     try {
         const response = await api.delete(`/hyperscaler/environments/${id}/`);
         return response.data;
