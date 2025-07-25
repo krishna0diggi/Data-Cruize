@@ -110,84 +110,82 @@ export default function AddHyperscaler({
   };
 
   return (
-    <div className="relative z-10" role="dialog" aria-modal="true">
+    <div className="relative z-10 h-500 overflow-scroll" role="dialog" aria-modal="true">
       <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <form onSubmit={handleSubmit}>
-              <div className="bg-white px-6 pt-5 pb-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  {initialData ? 'Edit Cloud Credential' : 'Add Cloud Credential'}
-                </h3>
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto flex items-center justify-center">
+        <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg max-h-[80vh] overflow-y-auto">
+          <form onSubmit={handleSubmit}>
+            <div className="bg-white px-6 pt-5 pb-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                {initialData ? 'Edit Cloud Credential' : 'Add Cloud Credential'}
+              </h3>
 
-                {/* Provider Select */}
-                <div className="mb-4">
-                  <label htmlFor="provider" className="block text-sm font-medium text-gray-700 mb-1">
-                    Select Provider
+              {/* Provider Select */}
+              <div className="mb-4">
+                <label htmlFor="provider" className="block text-sm font-medium text-gray-700 mb-1">
+                  Select Provider
+                </label>
+                <select
+                  id="provider"
+                  name="provider"
+                  value={provider}
+                  onChange={(e) => {
+                    setProvider(e.target.value);
+                    setFormData((prev) => ({
+                      provider: e.target.value
+                    }));
+                  }}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                  disabled={!!initialData} // disable provider change on edit
+                >
+                  <option value="aws">AWS</option>
+                  <option value="azure">Azure</option>
+                  {/* <option value="gcp">Google Cloud</option> */}
+                </select>
+              </div>
+
+              {/* Dynamic Fields */}
+              {providerFields[provider]?.map((field) => (
+                <div key={field.name} className="mb-4">
+                  <label htmlFor={field.name} className="block text-sm font-medium text-gray-700 mb-1">
+                    {field.label}
                   </label>
-                  <select
-                    id="provider"
-                    name="provider"
-                    value={provider}
-                    onChange={(e) => {
-                      setProvider(e.target.value);
-                      setFormData((prev) => ({
-                        provider: e.target.value
-                      }));
-                    }}
+                  <input
+                    type={field.type || 'text'}
+                    id={field.name}
+                    name={field.name}
+                    value={formData[field.name] || ''}
+                    onChange={handleInputChange}
                     className="w-full p-2 border border-gray-300 rounded-md"
-                    disabled={!!initialData} // disable provider change on edit
-                  >
-                    <option value="aws">AWS</option>
-                    <option value="azure">Azure</option>
-                    {/* <option value="gcp">Google Cloud</option> */}
-                  </select>
+                    autoComplete="off"
+                  />
+                  {field.name === 'unique_Name' && nameError && (
+                    <p className="text-red-600 text-xs mt-1">{nameError}</p>
+                  )}
                 </div>
+              ))}
+            </div>
 
-                {/* Dynamic Fields */}
-                {providerFields[provider]?.map((field) => (
-                  <div key={field.name} className="mb-4">
-                    <label htmlFor={field.name} className="block text-sm font-medium text-gray-700 mb-1">
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type || 'text'}
-                      id={field.name}
-                      name={field.name}
-                      value={formData[field.name] || ''}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                      autoComplete="off"
-                    />
-                    {field.name === 'unique_Name' && nameError && (
-                      <p className="text-red-600 text-xs mt-1">{nameError}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-2">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="bg-white text-gray-700 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                  disabled={!!nameError || loading}
-                >
-                  {loading && <Spinner />}
-                  {loading ? (initialData ? 'Updating...' : 'Saving...') : (initialData ? 'Update' : 'Save')}
-                </button>
-              </div>
-            </form>
-          </div>
+            <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="bg-white text-gray-700 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                disabled={!!nameError || loading}
+              >
+                {loading && <Spinner />}
+                {loading ? (initialData ? 'Updating...' : 'Saving...') : (initialData ? 'Update' : 'Save')}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

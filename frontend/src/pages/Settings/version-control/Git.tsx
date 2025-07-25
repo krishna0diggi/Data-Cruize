@@ -108,7 +108,7 @@ export default function GitServiceManager() {
   };
 
   const columns = [
-    { title: "Git ID", data: "git_id" },
+    // { title: "Git ID", data: "git_id" },
     { title: "Git Name", data: "unique_Name" },
     { title: "Repo Owner", data: "repo_owner" },
     { title: "Repo Name", data: "repo_name" },
@@ -141,7 +141,7 @@ export default function GitServiceManager() {
         </Button>
       </div>
 
-      <div className="bg-white rounded shadow p-4">
+    <div className="bg-white rounded-xl shadow p-6 overflow-x-auto">
         <ToastContainer
           position="top-right"
           autoClose={2000}

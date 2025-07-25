@@ -62,12 +62,12 @@ const DatabricksEnvironment = () => {
 
 
     const columns = [
-        { title: "Env ID", data: "env_id" },
-        { title: "Name", data: "name" },
-        { title: 'Status', data: "status" },
+        // { title: "Env ID", data: "env_id" },
+        { title: "Env Name", data: "name" },
         // { title: "Description", data: "description" },
         { title: "Cloud Name", data: "cloud.unique_Name", defaultContent: "-" },
         { title: "Git Name", data: "git.unique_Name", defaultContent: "-" },
+        { title: 'Status', data: "status" },
         {
             title: "Actions", data: null, orderable: false, render: function (data: any, type: any, row: any) {
                 return `

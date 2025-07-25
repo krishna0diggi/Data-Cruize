@@ -31,9 +31,9 @@ function App() {
         <Routes>
 
           {/* Redirect root to first menu item */}
-          <Route path="/" element={<Navigate to="/cloud/resource-group" replace />} />
+          <Route path="/" element={<Navigate to="/databricks/environment/run" replace />} />
 
-          <Route path="/databricks/service/environment" element={<DashboardLayout><DatabricksEnvironment/></DashboardLayout>}/>
+          {/* <Route path="/databricks/service/environment" element={<DashboardLayout><DatabricksEnvironment/></DashboardLayout>}/> */}
 
           {/* Cloud routes */}
           <Route path="/cloud/resource-group" element={<DashboardLayout><ResourceGroup /></DashboardLayout>} />
@@ -44,6 +44,7 @@ function App() {
           {/* Databricks routes */}
           <Route path="/databricks/resource-group" element={<DashboardLayout><ResourceGrp /></DashboardLayout>} />
           <Route path="/databricks/access-control" element={<DashboardLayout><AccessControl /></DashboardLayout>} />
+          <Route path='/databricks/environment/run' element={<DashboardLayout><DatabricksEnvironment /></DashboardLayout>} />
 
           {/* Settings routes */}
           <Route path="/settings/hyperscaler" element={<DashboardLayout><HyperScaler /></DashboardLayout>} />

@@ -124,7 +124,7 @@ export default function HyperScaler() {
   };
 
   const columns = [
-    { title: "Cloud ID", data: "cloud_id" },
+    // { title: "Cloud ID", data: "cloud_id" },
     { title: "Cloud Name", data: "unique_Name" },
     { title: "Provider", data: "provider" },
     { title: "Subscription ID", data: "subscription_id" },

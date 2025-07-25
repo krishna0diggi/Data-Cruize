@@ -96,7 +96,7 @@ const Environment = () => {
   };
 
   const columns = [
-    { title: "Env ID", data: "env_id" },
+    // { title: "Env ID", data: "env_id" },
     { title: "Name", data: "name" },
     { title: 'Status', data: "status" },
     // { title: "Description", data: "description" },
@@ -129,7 +129,7 @@ const Environment = () => {
         </Button>
       </div>
 
-      <div className="bg-white rounded shadow p-4">
+      <div className="bg-white rounded-xl shadow p-6 overflow-x-auto">
         <ToastContainer
           position="top-right"
           autoClose={2000}
