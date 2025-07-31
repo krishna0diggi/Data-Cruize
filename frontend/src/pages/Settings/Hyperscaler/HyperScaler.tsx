@@ -125,8 +125,8 @@ export default function HyperScaler() {
 
   const columns = [
     // { title: "Cloud ID", data: "cloud_id" },
-    { title: "Cloud Name", data: "unique_Name" },
-    { title: "Provider", data: "provider" },
+    { title: "Provider Name", data: "provider" },
+    { title: "Subscription Name", data: "unique_Name" },
     { title: "Subscription ID", data: "subscription_id" },
     { title: "Tenant ID", data: "tenant_id" },
      { title: "Client ID", data: "client_id" },
@@ -156,7 +156,7 @@ export default function HyperScaler() {
             setDialogOpen(true);
           }}
         >
-          Add Cloud
+           Add Cloud credential
         </Button>
       </div>
 
@@ -171,12 +171,12 @@ export default function HyperScaler() {
           draggable
           theme="colored"
         />
-        <ConfirmModal
+        {/* <ConfirmModal
           open={confirmDelete.open}
           message="Are you sure you want to delete this cloud service?"
           onConfirm={handleDeleteConfirmed}
           onCancel={() => setConfirmDelete({ open: false, id: null })}
-        />
+        /> */}
 
         {loading ? (
           <div>Loading...</div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Spinner } from '../../../components/ui/Spinner';
 import { toast } from 'react-toastify';
+import Button from '../../../components/ui/Button';
 
 interface AddCategoryDialogProps {
   visible: boolean;
@@ -15,7 +16,7 @@ const providerFields: Record<
   { label: string; name: string; type?: string }[]
 > = {
   aws: [
-    { label: 'Cloud Name', name: 'unique_Name' },
+    { label: 'Subscription Name', name: 'unique_Name' },
     { label: 'Subscription ID', name: 'subscription_id' },
     { label: 'Tenant ID', name: 'tenant_id' },
     { label: 'Client Secret', name: 'client_secret', type: 'password' },
@@ -23,7 +24,7 @@ const providerFields: Record<
     { label: 'Region', name: 'region' },
   ],
   azure: [
-    { label: 'Cloud Name', name: 'unique_Name' },
+    { label: 'Subscription Name', name: 'unique_Name' },
     { label: 'Subscription ID', name: 'subscription_id' },
     { label: 'Directory (Tenant) ID', name: 'tenant_id' },
     { label: 'Client ID', name: 'client_id' },
@@ -167,24 +168,23 @@ export default function AddHyperscaler({
               ))}
             </div>
 
-            <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="bg-white text-gray-700 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                disabled={!!nameError || loading}
-              >
-                {loading && <Spinner />}
-                {loading ? (initialData ? 'Updating...' : 'Saving...') : (initialData ? 'Update' : 'Save')}
-              </button>
-            </div>
+            <div className="flex justify-end space-x-2">
+                {/* Replace Cancel native button */}
+                <Button variant="secondary" onClick={onClose}>
+                  Cancel
+                </Button>
+
+                {/* Replace Submit native button with loading */}
+                <Button
+                  variant="primary"
+                  onClick={handleSubmit}
+                  loading={loading}
+                  loadingText={initialData ? 'Updating...' : 'Saving...'}
+                  disabled={!!nameError || loading}
+                >
+                  {initialData ? 'Update' : 'Save'}
+                </Button>
+              </div>
           </form>
         </div>
       </div>

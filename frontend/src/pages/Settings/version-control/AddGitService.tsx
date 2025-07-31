@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Spinner } from "../../../components/ui/Spinner";
+import Button from "../../../components/ui/Button";
 
 interface GitService {
   unique_Name?: string;
@@ -15,7 +16,7 @@ interface AddGitServiceProps {
   gitNames: string[];
   onClose: () => void;
   onSubmit: (data: GitService) => void;
-  initialData: GitService | null;
+  initialData: GitService | null ;
 }
 
 const AddGitService: React.FC<AddGitServiceProps> = ({
@@ -44,6 +45,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
         github_token: "",
         repo_owner: "",
         repo_name: "",
+  
         workflow_id: "",
       });
     }
@@ -60,7 +62,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
         // toast.error("Name already exists. Please choose a different name.");
         setNameError('Name already exists. Please choose a different name.');
       } else {
-         setNameError(null); 
+        setNameError(null);
       }
     }
   };
@@ -77,6 +79,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
         unique_Name: "",
         github_token: "",
         repo_owner: "",
+    
         repo_name: "",
         workflow_id: "",
       });
@@ -127,7 +130,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
               </div>
 
 
-                {/* Repo Owner */}
+              {/* Repo Owner */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
                   Repo Owner
@@ -142,7 +145,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
                 />
               </div>
 
-                 {/* Repo Name */}
+              {/* Repo Name */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
                   Repo Name
@@ -156,12 +159,13 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
                   required
                 />
               </div>
+              
 
 
 
 
-            
-           
+
+
               {/* Workflow ID */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700">
@@ -177,7 +181,7 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
                 />
               </div>
 
-              
+
               {/* GitHub Token */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
@@ -195,23 +199,23 @@ const AddGitService: React.FC<AddGitServiceProps> = ({
 
               {/* Footer buttons */}
               <div className="flex justify-end space-x-2">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200"
-                >
+                {/* Replace Cancel native button */}
+                <Button variant="secondary" onClick={onClose}>
                   Cancel
-                </button>
-                <button
-                  type="submit"
-                  className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                </Button>
+
+                {/* Replace Submit native button with loading */}
+                <Button
+                  variant="primary"
+                  onClick={handleSubmit}
+                  loading={loading}
+                  loadingText={initialData ? 'Updating...' : 'Saving...'}
                   disabled={!!nameError || loading}
                 >
-                  {loading && <Spinner />}
-                  {loading ? (initialData ? 'Updating...' : 'Saving...') : (initialData ? 'Update' : 'Save')}
-                </button>
+                  {initialData ? 'Update' : 'Save'}
+                </Button>
               </div>
+
             </form>
           </div>
         </div>

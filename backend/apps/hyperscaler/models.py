@@ -76,25 +76,14 @@ class Environment(models.Model):
         max_length=20,
         choices=[
             ('active', 'Active'),
+             ('new', 'New'),
             ('inactive', 'Inactive'),
             ('pending', 'Pending'),
             ('failed', 'Failed'),
             ('deleting', 'Deleting'),
-            ('deleted', 'Deleted'),
-            ('suspended', 'Suspended'),
-            ('resuming', 'Resuming'),
-            ('resumed', 'Resumed'),
-            ('creating', 'Creating'),
-            ('updating', 'Updating'),
-            ('inactive', 'Inactive'),
-            ('error', 'Error'),
-            ('cancelling', 'Cancelling'),
-            ('cancelled', 'Cancelled'),
-            ('suspending', 'Suspending'),
-            ('succeeded', 'Succeeded'),
-            ('archived', 'Archived')
+         
         ],
-        default='inactive'
+        default='new'
     )
     cloud = models.ForeignKey(CloudCredential, on_delete=models.CASCADE, related_name='environments', null=True)
     git = models.ForeignKey(GitCredentials, on_delete=models.CASCADE, related_name='environments', blank=True, null=True)

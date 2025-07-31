@@ -36,7 +36,7 @@ const AddEnvironment: React.FC<AddEnvironmentDialogProps> = ({
   
 
 
-  console.log(initialData);
+  // console.log(initialData);
 
   useEffect(() => {
     if (initialData) {
@@ -98,6 +98,7 @@ const AddEnvironment: React.FC<AddEnvironmentDialogProps> = ({
         }
         try {
           await onSubmit(formData,);
+          toast.success(`Environment ${formData.name} added successfully`)
           setFormData({
            name:" ",
            description:" ",

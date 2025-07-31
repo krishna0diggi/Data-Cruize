@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Menu, X } from 'lucide-react';
-
+import { Menu, X, Presentation, Video } from 'lucide-react';
 interface TopNavProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
@@ -20,19 +19,30 @@ const TopNav: React.FC<TopNavProps> = ({ sidebarOpen, setSidebarOpen }) => {
           <Menu className="h-5 w-5 text-gray-600" />
         )}
       </button>
-      
-      <div className="ml-4">
-        <h1 className="text-xl font-semibold text-gray-900">Set Up</h1>
-      </div>
-      
+
+      <div className="ml-4"></div>
       <div className="flex-1"></div>
-      
-      <div className="flex items-center space-x-4">
-        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-          <span className="text-white text-sm font-medium">U</span>
+
+     
+      {/* <div className="flex items-center space-x-6">
+        
+        <div className="flex flex-col items-center">
+          <Presentation style={{ opacity: 0.5, fontSize: 22 }}/>
+          <span className="text-[10px] text-gray-500 leading-none mt-0.5">Getting Started</span>
         </div>
-      </div>
+      
+        <div className="flex flex-col items-center">
+          <Video
+            style={{ opacity: 0.5, fontSize: 22 }}
+            
+          />
+          <span className="text-[10px] text-gray-500 leading-none mt-0.5">
+            Watch Tutorial
+          </span>
+        </div>
+      </div> */}
     </nav>
+
   );
 };
 

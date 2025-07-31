@@ -14,7 +14,6 @@ import DataTablesCore from "datatables.net-dt";
 import "datatables.net-rowgroup-dt"; // Optional, remove if not grouping rows
 import { toast, ToastContainer } from "react-toastify";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
-import type { unique } from "jquery";
 
 DataTable.use(DataTablesCore);
 
@@ -113,7 +112,7 @@ export default function GitServiceManager() {
     { title: "Repo Owner", data: "repo_owner" },
     { title: "Repo Name", data: "repo_name" },
     { title: "Workflow ID", data: "workflow_id" },
-    { title: "Github Token", data: "github_token" },
+    // { title: "Github Token", data: "github_token" },
     {
       title: "Actions", data: null, orderable: false, render: function (data: any, type: any, row: any) {
         return `
@@ -137,7 +136,7 @@ export default function GitServiceManager() {
             setDialogOpen(true);
           }}
         >
-          Add Git
+           Add git credentials
         </Button>
       </div>
 
@@ -152,12 +151,12 @@ export default function GitServiceManager() {
           draggable
           theme="colored"
         />
-        <ConfirmModal
+        {/* <ConfirmModal
           open={confirmDelete.open}
           message="Are you sure you want to delete this cloud service?"
           onConfirm={handleDeleteConfirmed}
           onCancel={() => setConfirmDelete({ open: false, id: null })}
-        />
+        /> */}
         {loading ? (
           <div>Loading...</div>
         ) : (
@@ -171,7 +170,7 @@ export default function GitServiceManager() {
                 <th>Repo Owner</th>
                 <th>Repo Name</th>
                 <th>Workflow ID</th>
-                <th>Github Token</th>
+                {/* <th>Github Token</th> */}
                 <th>Git ID</th>
               </tr>
             </thead>

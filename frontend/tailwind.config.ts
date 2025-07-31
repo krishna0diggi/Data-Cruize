@@ -1,6 +1,6 @@
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
-import defaultTheme from 'tailwindcss/defaultTheme'
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -10,24 +10,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#ff1744', // Red A400
-        'primary-foreground': '#fff',
-        secondary: '#ff8a80', // Red lighten
-        'secondary-foreground': '#fff',
-        accent: '#ff5252', // Red accent
-        'accent-foreground': '#fff',
-        background: '#fff0f0', // Light red background
-        foreground: '#b71c1c', // Dark red text
-        muted: '#f8bbd0',
-        'muted-foreground': '#ad1457',
-        card: '#fff1f2',
-        'card-foreground': '#b71c1c',
+        redOrange: '#FF3621',
+        springWood: '#F9F7F4',
+        gableGreen: '#1B3139',
+        'redOrange-foreground': '#fff',
+        'springWood-foreground': '#1B3139',
+        'gableGreen-foreground': '#F9F7F4',
       },
       fontFamily: {
         sans: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
     },
   },
+  // Removed invalid 'safelist' property. If you need to safelist classes, use the 'safelist' option in tailwind.config.js (not .ts) or configure purge/content properly.
   plugins: [],
 };
 

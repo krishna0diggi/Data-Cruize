@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from django.db.models import Q
-
+from .workflow.runenv import process_environment_payload
 from rest_framework.response import Response
 from .models import CloudCredential, GitCredentials, Environment
 # from .serializers import CloudCredentialSerializer, GitCredentialsSerializer, EnvironmentSerializer, GitCredentialNameSerializer
@@ -113,3 +113,39 @@ class EnvironmentViewSet(viewsets.ModelViewSet):
                 "env_id": instance.env_id
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+
+    
+    # POST: /environment/run
+    @action(detail=False, methods=['post'], url_path='run')
+    def run_environment(self,request):
+        data = request.data
+        print(data)
+        env_id = data.get('env')
+        cloud_id = data.get('cloud')
+        git_id = data.get('git')
+
+        try:
+            env = Environment.objects.get(id=env_id)
+        except Environment.DoesNotExist:
+            Response({"error": f"Environment with id {env_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+             cloud = CloudCredential.objects.get(id=cloud_id)
+        except:
+            cloud = None
+
+        try:
+            git = GitCredentials.objects.get(id=git_id)
+        except GitCredentials.DoesNotExist:
+            git = None
+        payload = {
+                "env": env,
+                "cloud": cloud,
+                "git": git
+        }
+        
+        result = process_environment_payload(payload)
+        print("View for environment",result)
+        return Response(result, status= status.HTTP_200_OK)
+
+
